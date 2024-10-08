@@ -1,0 +1,59 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: etherpad-apikey-config
+data:
+  APIKEY.txt : | 
+    5ff7ea9032814c34a8f8daf05038aa9d48d29052678ca34eb40c69a981b118f9
+
+---  
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    node.type: etherpad-server
+  name: etherpad-server
+ # namespace: elk
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: just-smart
+  template:
+    metadata:
+      labels:
+        app: just-smart
+    spec:
+      containers:
+        - name: etherpad-server
+          image: ciccio2305/justsmartetherpad:latest
+          ports:
+            - containerPort: 9001
+              protocol: TCP
+          volumeMounts:
+            - name: apikey-volume
+              mountPath: /opt/etherpad-lite/APIKEY.txt 
+              subPath: APIKEY.txt
+      restartPolicy: Always
+      volumes:
+        - name: apikey-volume
+          configMap:
+            name: etherpad-apikey-config
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    es.service: etherpad-server-service
+  name: etherpad-server-service
+  #namespace: elk
+spec:
+  ports:
+    - name: "9001"
+      port: 9001
+      targetPort: 9001
+  selector:
+    app: just-smart
+  type: NodePort
+  

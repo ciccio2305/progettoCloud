@@ -1,0 +1,28 @@
+{
+	"/": [
+		"src/routes/+page.server.js",
+		"src/routes/+layout.js",
+		"src/routes/+layout.js"
+	],
+	"/chat": [
+		"src/routes/+layout.js"
+	],
+	"/etherpadManager": [
+		"src/routes/+layout.js"
+	],
+	"/fileManager": [
+		"src/routes/+layout.js"
+	],
+	"/homepage": [
+		"src/routes/+layout.js"
+	],
+	"/login": [
+		"src/routes/+layout.js"
+	],
+	"/register": [
+		"src/routes/+layout.js"
+	],
+	"/settings": [
+		"src/routes/+layout.js"
+	]
+}

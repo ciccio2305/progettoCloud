@@ -1,0 +1,7 @@
+FROM python:3.11-slim-bookworm
+WORKDIR /app
+COPY . . 
+RUN pip --no-cache-dir install -r requirements.txt
+ENV PYTHONUNBUFFERED=0
+EXPOSE 5000
+CMD ["python", "-u", "main.py"]

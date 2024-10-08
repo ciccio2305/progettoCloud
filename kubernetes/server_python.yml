@@ -1,0 +1,42 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    node.type: python-server
+  name: python-server
+ # namespace: elk
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: just-smart
+  template:
+    metadata:
+      labels:
+        app: just-smart
+    spec:
+      containers:
+        - name: python-server
+          image: ciccio2305/justsmartserver1:latest
+          ports:
+            - containerPort: 5000
+              protocol: TCP
+      restartPolicy: Always
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    es.service: python-server-service
+  name: python-server-service
+  #namespace: elk
+spec:
+  ports:
+    - name: "5000"
+      port: 5000
+      targetPort: 5000
+      nodePort: 32008
+  selector:
+    app: just-smart
+  type: NodePort
+  

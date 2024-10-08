@@ -1,0 +1,8 @@
+flask
+datetime
+pymongo==3.12.3
+bcrypt
+datetime
+flask_cors
+flask_session
+requests

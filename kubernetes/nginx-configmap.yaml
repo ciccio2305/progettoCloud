@@ -1,0 +1,113 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: nginx-config
+data:
+  nginx.conf: |
+    worker_processes 1;
+    events { worker_connections 1024; }
+
+    http {
+        
+        include       mime.types;
+        default_type  application/octet-stream;
+        
+        map $http_upgrade $connection_upgrade{
+            default upgrade;
+            '' close;
+        }
+
+        upstream websocket{
+            server pad.justsmart.it:80;
+        }
+         server {
+            listen       80;
+            server_name justsmart.it;
+            proxy_connect_timeout 1000;
+            proxy_send_timeout 1000;
+            proxy_read_timeout 1000;
+            location / {
+               
+                proxy_set_header Cookie $http_cookie;
+                proxy_set_header X-Real-IP $remote_addr;
+                #proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+                proxy_set_header Host $http_host;
+                proxy_set_header  X-Real-HOST  $host;
+                proxy_redirect off;
+
+                proxy_pass http://python-server-service.default.svc.cluster.local:5000;
+            }
+        }
+
+        server {
+            listen 80;
+            server_name pad.justsmart.it;
+            proxy_connect_timeout 1000;
+            proxy_send_timeout 1000;
+            proxy_read_timeout 1000;
+            location / {
+              
+                proxy_set_header Cookie $http_cookie;
+                proxy_set_header X-Real-IP $remote_addr;
+                proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+                proxy_set_header X-Forwarded-Proto $scheme;
+                proxy_set_header Upgrade $http_upgrade;
+                proxy_set_header Connection $connection_upgrade;
+
+                proxy_set_header Host $http_host;
+                proxy_set_header  X-Real-HOST  $host;
+                proxy_hide_header 'x-frame-options';
+                proxy_set_header x-frame-options allowall;
+                add_header X-Frame-Options '' always;
+                
+                #proxy_cookie_domain justsmart.it pad.justsmart.it;
+                proxy_redirect off;
+
+                proxy_pass http://etherpad-server-service.default.svc.cluster.local:9001;
+            }
+        }
+        #servizio chat
+        server {
+            listen 80;
+            server_name chat.justsmart.it;
+            
+            proxy_connect_timeout 1000;
+            proxy_send_timeout 1000;
+            proxy_read_timeout 1000;
+
+            location / {
+
+                proxy_set_header Cookie $http_cookie;
+                proxy_set_header X-Real-IP $remote_addr;
+                proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+                proxy_set_header X-Forwarded-Proto $scheme;
+                proxy_set_header Upgrade $http_upgrade;
+                proxy_set_header Connection $connection_upgrade;
+
+                proxy_set_header Host $http_host;
+                proxy_set_header  X-Real-HOST  $host;
+                proxy_hide_header 'x-frame-options';
+                proxy_set_header x-frame-options allowall;
+                add_header X-Frame-Options '' always;
+
+                proxy_redirect off;
+
+                proxy_pass http://tinode-service.default.svc.cluster.local:6060;
+              }
+          }
+    }
+
+    stream {
+        
+
+        upstream mongo-service {
+            server mongo-service.default.svc.cluster.local:27017;
+        }
+
+
+        server {
+          listen 27017;  # Ascolta la porta MongoDB
+          server_name db-mongo.justsmart.it;
+          proxy_pass mongo-service;  # Instrada le richieste al backend MongoDB
+        }
+    }

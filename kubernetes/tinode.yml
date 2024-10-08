@@ -1,0 +1,51 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    node.type: tinode
+  name: tinode
+  # namespace: elk
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: just-smart
+  template:
+    metadata:
+      labels:
+        app: just-smart
+    spec:
+      containers:
+        - name: tinode
+          image: ciccio2305/justsmarttinode1:latest
+          ports:
+            - containerPort: 6060
+              protocol: TCP
+          volumeMounts:
+            - name: tinode-config-volume
+              mountPath: /tinode.conf  # Dove montare il file all'interno del container
+              subPath: tinode.conf   # Nome del file sul volume
+          env:
+            - name: EXT_CONFIG
+              value: /tinode.conf        # Variabile d'ambiente
+      restartPolicy: Always
+      volumes:
+        - name: tinode-config-volume
+          configMap:
+            name: tinode-config           
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    es.service: tinode-service
+  name: tinode-service
+  # namespace: elk
+spec:
+  ports:
+    - name: "6060"
+      port: 6060
+      targetPort: 6060
+  selector:
+    app: just-smart
+  type: NodePort

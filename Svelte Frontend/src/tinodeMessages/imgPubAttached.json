@@ -1,0 +1,31 @@
+{
+    "pub": {
+        "id": "",
+        "topic": "",
+        "noecho": true,
+        "head": {
+            "mime": "text/x-drafty"
+        },
+        "content": {
+            "ent": [
+                {
+                    "tp": "EX",
+                    "data": {
+                        "mime": "",
+                        "ref": "",
+                        "name": "a",
+                        "size": 0
+                    }
+                }
+            ],
+            "fmt": [
+                {
+                    "at": -1
+                }
+            ]
+        }
+    },
+    "extra": {
+        "attachments": []
+    }
+}

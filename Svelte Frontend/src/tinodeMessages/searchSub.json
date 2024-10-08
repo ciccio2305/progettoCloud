@@ -1,0 +1,9 @@
+{
+    "sub":{
+        "id":"",
+        "topic":"fnd",
+        "get":{
+            "what":"sub"
+        }
+    }
+}

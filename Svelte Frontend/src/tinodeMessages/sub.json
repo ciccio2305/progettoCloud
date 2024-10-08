@@ -1,0 +1,9 @@
+{
+    "sub":{
+        "id":"",
+        "topic":"",
+        "get":{
+            "what":"sub desc tags cred"
+        }
+    }
+}
