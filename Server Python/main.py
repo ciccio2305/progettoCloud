@@ -228,7 +228,7 @@ def get_pad(path):
             etherpad_group_id, new_pad_name)
         etherpad_session, timestamp = etherpad_instance.create_session_for_pad_id(
             etherpad_group_id, etherpad_user_id)
-        dict_response = {"destination_url": "https://pad.justsmart.it/p/" +
+        dict_response = {"destination_url": "http://pad.justsmart.it/p/" +
                          etherpad_pad, "sessionID": {"value": etherpad_session, "expires": timestamp}}
         response = make_response(json.dumps(dict_response), 200)
         response.set_cookie('sessionID', etherpad_session,

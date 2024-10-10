@@ -4,7 +4,7 @@ metadata:
   name: nginx-config
 data:
   nginx.conf: |
-    worker_processes 1;
+    worker_processes 2;
     events { worker_connections 1024; }
 
     http {
@@ -18,7 +18,7 @@ data:
         }
 
         upstream websocket{
-            server pad.justsmart.it:80;
+            server etherpad-server-service.default.svc.cluster.local:80;
         }
          server {
             listen       80;

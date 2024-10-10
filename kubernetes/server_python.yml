@@ -32,10 +32,10 @@ metadata:
   #namespace: elk
 spec:
   ports:
-    - name: "5000"
+    - name: "http"
       port: 5000
-      targetPort: 5000
-      nodePort: 32008
+      #targetPort: 5000
+      nodePort: 30000
   selector:
     app: just-smart
   type: NodePort

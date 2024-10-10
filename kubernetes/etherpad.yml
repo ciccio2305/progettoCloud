@@ -19,11 +19,11 @@ spec:
   replicas: 1
   selector:
     matchLabels:
-      app: just-smart
+      app: pad-just-smart
   template:
     metadata:
       labels:
-        app: just-smart
+        app: pad-just-smart
     spec:
       containers:
         - name: etherpad-server
@@ -50,10 +50,10 @@ metadata:
   #namespace: elk
 spec:
   ports:
-    - name: "9001"
+    - name: "http"
       port: 9001
-      targetPort: 9001
+      nodePort: 30001
   selector:
-    app: just-smart
+    app: pad-just-smart
   type: NodePort
   

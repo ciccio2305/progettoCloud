@@ -9,11 +9,11 @@ spec:
   replicas: 1
   selector:
     matchLabels:
-      app: just-smart
+      app: chat-just-smart
   template:
     metadata:
       labels:
-        app: just-smart
+        app: chat-just-smart
     spec:
       containers:
         - name: tinode
@@ -43,9 +43,9 @@ metadata:
   # namespace: elk
 spec:
   ports:
-    - name: "6060"
+    - name: "http"
       port: 6060
-      targetPort: 6060
+      nodePort: 30002
   selector:
-    app: just-smart
+    app: chat-just-smart
   type: NodePort

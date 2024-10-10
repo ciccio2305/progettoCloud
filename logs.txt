@@ -1,0 +1,95 @@
+
+==> Audit <==
+|---------|--------------------------------|----------|-----------------------|---------|----------------------|----------------------|
+| Command |              Args              | Profile  |         User          | Version |      Start Time      |       End Time       |
+|---------|--------------------------------|----------|-----------------------|---------|----------------------|----------------------|
+| start   |                                | minikube | DESKTOP-MTO8BMG\cicci | v1.34.0 | 01 Oct 24 17:18 CEST |                      |
+| start   |                                | minikube | DESKTOP-MTO8BMG\cicci | v1.34.0 | 01 Oct 24 17:20 CEST |                      |
+| stop    |                                | minikube | DESKTOP-MTO8BMG\cicci | v1.34.0 | 01 Oct 24 17:31 CEST | 01 Oct 24 17:31 CEST |
+| delete  |                                | minikube | DESKTOP-MTO8BMG\cicci | v1.34.0 | 01 Oct 24 17:31 CEST | 01 Oct 24 17:31 CEST |
+| start   |                                | minikube | DESKTOP-MTO8BMG\cicci | v1.34.0 | 01 Oct 24 17:31 CEST | 01 Oct 24 17:33 CEST |
+| stop    |                                | minikube | DESKTOP-MTO8BMG\cicci | v1.34.0 | 02 Oct 24 11:36 CEST | 02 Oct 24 11:36 CEST |
+| start   | --memory 4096 --cpus 3         | minikube | DESKTOP-MTO8BMG\cicci | v1.34.0 | 02 Oct 24 11:36 CEST | 02 Oct 24 11:37 CEST |
+| ip      |                                | minikube | DESKTOP-MTO8BMG\cicci | v1.34.0 | 02 Oct 24 12:24 CEST | 02 Oct 24 12:24 CEST |
+| stop    |                                | minikube | DESKTOP-MTO8BMG\cicci | v1.34.0 | 02 Oct 24 14:45 CEST | 02 Oct 24 14:45 CEST |
+| start   | --memory=4096 --cpus=4         | minikube | DESKTOP-MTO8BMG\cicci | v1.34.0 | 02 Oct 24 14:50 CEST | 02 Oct 24 14:51 CEST |
+|         | --disk-size=25g                |          |                       |         |                      |                      |
+| ssh     |                                | minikube | DESKTOP-MTO8BMG\cicci | v1.34.0 | 02 Oct 24 17:04 CEST | 02 Oct 24 17:34 CEST |
+| ssh     |                                | minikube | DESKTOP-MTO8BMG\cicci | v1.34.0 | 02 Oct 24 17:10 CEST |                      |
+| start   |                                | minikube | DESKTOP-MTO8BMG\cicci | v1.34.0 | 02 Oct 24 23:54 CEST | 02 Oct 24 23:55 CEST |
+| start   |                                | minikube | DESKTOP-MTO8BMG\cicci | v1.34.0 | 03 Oct 24 10:08 CEST | 03 Oct 24 10:09 CEST |
+| start   |                                | minikube | DESKTOP-MTO8BMG\cicci | v1.34.0 | 03 Oct 24 15:24 CEST | 03 Oct 24 15:24 CEST |
+| addons  | enable ingress                 | minikube | DESKTOP-MTO8BMG\cicci | v1.34.0 | 03 Oct 24 16:14 CEST | 03 Oct 24 16:15 CEST |
+| ip      |                                | minikube | DESKTOP-MTO8BMG\cicci | v1.34.0 | 03 Oct 24 16:22 CEST | 03 Oct 24 16:22 CEST |
+| tunnel  |                                | minikube | DESKTOP-MTO8BMG\cicci | v1.34.0 | 03 Oct 24 16:27 CEST | 03 Oct 24 16:29 CEST |
+| tunnel  |                                | minikube | DESKTOP-MTO8BMG\cicci | v1.34.0 | 03 Oct 24 16:29 CEST | 03 Oct 24 16:29 CEST |
+| tunnel  |                                | minikube | DESKTOP-MTO8BMG\cicci | v1.34.0 | 03 Oct 24 16:33 CEST |                      |
+| ip      |                                | minikube | DESKTOP-MTO8BMG\cicci | v1.34.0 | 03 Oct 24 16:47 CEST | 03 Oct 24 16:47 CEST |
+| stop    |                                | minikube | DESKTOP-MTO8BMG\cicci | v1.34.0 | 03 Oct 24 16:48 CEST | 03 Oct 24 16:48 CEST |
+| start   |                                | minikube | DESKTOP-MTO8BMG\cicci | v1.34.0 | 03 Oct 24 16:49 CEST | 03 Oct 24 16:49 CEST |
+| service |                                | minikube | DESKTOP-MTO8BMG\cicci | v1.34.0 | 03 Oct 24 16:54 CEST |                      |
+| service | http-ingress                   | minikube | DESKTOP-MTO8BMG\cicci | v1.34.0 | 03 Oct 24 16:54 CEST |                      |
+| service | http-ingress -n ingress-nginx  | minikube | DESKTOP-MTO8BMG\cicci | v1.34.0 | 03 Oct 24 16:55 CEST |                      |
+| service | list                           | minikube | DESKTOP-MTO8BMG\cicci | v1.34.0 | 03 Oct 24 16:55 CEST | 03 Oct 24 16:55 CEST |
+| service | ingress-nginx-controller       | minikube | DESKTOP-MTO8BMG\cicci | v1.34.0 | 03 Oct 24 16:55 CEST |                      |
+| service | ingress-nginx-controller -n    | minikube | DESKTOP-MTO8BMG\cicci | v1.34.0 | 03 Oct 24 16:56 CEST | 03 Oct 24 16:57 CEST |
+|         | ingress-nginx                  |          |                       |         |                      |                      |
+| stop    |                                | minikube | DESKTOP-MTO8BMG\cicci | v1.34.0 | 03 Oct 24 16:59 CEST | 03 Oct 24 16:59 CEST |
+| start   |                                | minikube | DESKTOP-MTO8BMG\cicci | v1.34.0 | 03 Oct 24 17:00 CEST | 03 Oct 24 17:00 CEST |
+| service | ingress-nginx-controller -n    | minikube | DESKTOP-MTO8BMG\cicci | v1.34.0 | 03 Oct 24 17:02 CEST | 03 Oct 24 17:02 CEST |
+|         | ingress-nginx --url            |          |                       |         |                      |                      |
+| service | ingress-nginx-controller -n    | minikube | DESKTOP-MTO8BMG\cicci | v1.34.0 | 03 Oct 24 17:03 CEST | 03 Oct 24 17:04 CEST |
+|         | ingress-nginx --url            |          |                       |         |                      |                      |
+| service | --all                          | minikube | DESKTOP-MTO8BMG\cicci | v1.34.0 | 03 Oct 24 17:05 CEST | 03 Oct 24 17:06 CEST |
+| service | --all -n ingress-nginx         | minikube | DESKTOP-MTO8BMG\cicci | v1.34.0 | 03 Oct 24 17:06 CEST |                      |
+| start   | --driver=hyperv                | minikube | DESKTOP-MTO8BMG\cicci | v1.34.0 | 03 Oct 24 19:40 CEST |                      |
+| stop    |                                | minikube | DESKTOP-MTO8BMG\cicci | v1.34.0 | 03 Oct 24 19:41 CEST |                      |
+| delete  |                                | minikube | DESKTOP-MTO8BMG\cicci | v1.34.0 | 03 Oct 24 19:41 CEST | 03 Oct 24 19:41 CEST |
+| start   | --driver=hyperv                | minikube | DESKTOP-MTO8BMG\cicci | v1.34.0 | 03 Oct 24 19:41 CEST |                      |
+| start   | --driver=hyperv                | minikube | DESKTOP-MTO8BMG\cicci | v1.34.0 | 03 Oct 24 19:42 CEST |                      |
+| start   | --driver=hyperv                | minikube | DESKTOP-MTO8BMG\cicci | v1.34.0 | 03 Oct 24 20:01 CEST | 03 Oct 24 20:02 CEST |
+| service | list                           | minikube | DESKTOP-MTO8BMG\cicci | v1.34.0 | 03 Oct 24 20:04 CEST |                      |
+| service | --all -n ingress-nginx         | minikube | DESKTOP-MTO8BMG\cicci | v1.34.0 | 03 Oct 24 20:16 CEST |                      |
+| addons  | enable ingress                 | minikube | DESKTOP-MTO8BMG\cicci | v1.34.0 | 03 Oct 24 20:16 CEST |                      |
+| start   |                                | minikube | DESKTOP-MTO8BMG\cicci | v1.34.0 | 09 Oct 24 22:55 CEST |                      |
+| start   | -- driver = docker             | minikube | DESKTOP-MTO8BMG\cicci | v1.34.0 | 09 Oct 24 22:56 CEST |                      |
+| start   | --driver=docker --cpus=4       | minikube | DESKTOP-MTO8BMG\cicci | v1.34.0 | 09 Oct 24 22:56 CEST |                      |
+|         | --memory=4gb                   |          |                       |         |                      |                      |
+| delete  |                                | minikube | DESKTOP-MTO8BMG\cicci | v1.34.0 | 09 Oct 24 22:57 CEST |                      |
+| stop    |                                | minikube | DESKTOP-MTO8BMG\cicci | v1.34.0 | 09 Oct 24 22:57 CEST |                      |
+| delete  |                                | minikube | DESKTOP-MTO8BMG\cicci | v1.34.0 | 09 Oct 24 22:57 CEST |                      |
+| start   | --driver=docker --cpus=4       | minikube | DESKTOP-MTO8BMG\cicci | v1.34.0 | 09 Oct 24 22:58 CEST |                      |
+| stop    |                                | minikube | DESKTOP-MTO8BMG\cicci | v1.34.0 | 09 Oct 24 22:58 CEST |                      |
+| start   |                                | minikube | DESKTOP-MTO8BMG\cicci | v1.34.0 | 09 Oct 24 23:09 CEST |                      |
+| start   | --driver=docker --cpus=4       | minikube | DESKTOP-MTO8BMG\cicci | v1.34.0 | 09 Oct 24 23:09 CEST |                      |
+| delete  |                                | minikube | DESKTOP-MTO8BMG\cicci | v1.34.0 | 09 Oct 24 23:10 CEST |                      |
+| stop    |                                | minikube | DESKTOP-MTO8BMG\cicci | v1.34.0 | 09 Oct 24 23:11 CEST |                      |
+| delete  |                                | minikube | DESKTOP-MTO8BMG\cicci | v1.34.0 | 09 Oct 24 23:11 CEST |                      |
+| delete  | --all                          | minikube | DESKTOP-MTO8BMG\cicci | v1.34.0 | 09 Oct 24 23:12 CEST |                      |
+| stop    |                                | minikube | DESKTOP-MTO8BMG\cicci | v1.34.0 | 09 Oct 24 23:18 CEST |                      |
+| delete  |                                | minikube | DESKTOP-MTO8BMG\cicci | v1.34.0 | 09 Oct 24 23:18 CEST |                      |
+|---------|--------------------------------|----------|-----------------------|---------|----------------------|----------------------|
+
+
+==> Last Start <==
+Log file created at: 2024/10/09 23:09:49
+Running on machine: DESKTOP-MTO8BMG
+Binary: Built with gc go1.22.5 for windows/amd64
+Log line format: [IWEF]mmdd hh:mm:ss.uuuuuu threadid file:line] msg
+I1009 23:09:49.174649    2164 out.go:345] Setting OutFile to fd 84 ...
+I1009 23:09:49.495023    2164 out.go:397] isatty.IsTerminal(84) = true
+I1009 23:09:49.495023    2164 out.go:358] Setting ErrFile to fd 88...
+I1009 23:09:49.495668    2164 out.go:397] isatty.IsTerminal(88) = true
+I1009 23:09:49.600321    2164 out.go:352] Setting JSON to false
+I1009 23:09:49.648371    2164 start.go:129] hostinfo: {"hostname":"DESKTOP-MTO8BMG","uptime":198,"bootTime":1728507991,"procs":254,"os":"windows","platform":"Microsoft Windows 10 Home","platformFamily":"Standalone Workstation","platformVersion":"10.0.19045.5011 Build 19045.5011","kernelVersion":"10.0.19045.5011 Build 19045.5011","kernelArch":"x86_64","virtualizationSystem":"","virtualizationRole":"","hostId":"59bb14ec-4f23-4200-a26f-cca6af18808f"}
+W1009 23:09:49.648371    2164 start.go:137] gopshost.Virtualization returned error: not implemented yet
+I1009 23:09:49.682072    2164 out.go:177] 😄  minikube v1.34.0 on Microsoft Windows 10 Home 10.0.19045.5011 Build 19045.5011
+I1009 23:09:49.712779    2164 config.go:182] Loaded profile config "minikube": Driver=hyperv, ContainerRuntime=docker, KubernetesVersion=v1.31.0
+I1009 23:09:49.713882    2164 notify.go:220] Checking for updates...
+E1009 23:09:49.713882    2164 start.go:812] api.Load failed for minikube: filestore "minikube": open C:\Users\cicci\.minikube\machines\minikube\config.json: Impossibile trovare il file specificato.
+I1009 23:09:49.759143    2164 out.go:201] 
+W1009 23:09:49.794559    2164 out.go:270] 💢  Exiting due to GUEST_DRIVER_MISMATCH: The existing "minikube" cluster was created using the "hyperv" driver, which is incompatible with requested "docker" driver.
+W1009 23:09:49.796052    2164 out.go:270] 💡  Suggestion: Delete the existing 'minikube' cluster using: 'minikube delete', or start the existing 'minikube' cluster using: 'minikube start --driver=hyperv'
+I1009 23:09:49.818799    2164 out.go:201] 
+
+
