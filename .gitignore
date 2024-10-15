@@ -1,5 +1,5 @@
 # Ignore the keypair file 
 
 keypair1.pem
-./Svelte Frontend/node_modules
-./Svelte Frontend/build
+Svelte Frontend\node_modules
+Svelte Frontend\node_modules
