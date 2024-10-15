@@ -1,1 +1,0 @@
-import{c as t}from"./singletons.7fe40cd3.js";t.disable_scroll_handling;const R=t.goto;t.invalidate;t.invalidateAll;t.preload_data;t.preload_code;t.before_navigate;t.after_navigate;const o={PROTOCOL_SERVER:"http",URL_SERVER:"justsmart.it",PORT_SERVER:80,getHost:function(){return this.PROTOCOL_SERVER+"://"+this.URL_SERVER+":"+this.PORT_SERVER}};export{o as c,R as g};
