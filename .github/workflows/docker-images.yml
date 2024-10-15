@@ -54,7 +54,7 @@ jobs:
             tag: ciccio2305/justsmartetherpad:latest
         image_server:
           - name: server
-            context: ./Server Python/
+            context: ./Server\ Python/
             tag: ciccio2305/justsmartserver1:latest
         image_tinode:
           - name: tinode
