@@ -22,7 +22,7 @@ jobs:
 
     - name: Install dependencies for Svelte frontend
       working-directory: ./Svelte Frontend
-      run: npm install
+      run: npm install --legacy-peer-deps
 
     - name: Build Svelte frontend
       working-directory: ./Svelte Frontend
@@ -31,7 +31,7 @@ jobs:
     - name: Move build output to Python folder
       run: |
         mv ./Svelte Frontend/build/* ./Server Python/build/
-        
+
   build-and-push:
     runs-on: ubuntu-latest
     needs: svelte-build
