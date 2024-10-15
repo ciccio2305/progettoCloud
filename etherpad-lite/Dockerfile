@@ -120,6 +120,8 @@ COPY --chown=etherpad:etherpad ./var ./var
 COPY --chown=etherpad:etherpad ./bin ./bin
 COPY --chown=etherpad:etherpad ./pnpm-workspace.yaml ./package.json ./
 
+RUN chmod +x ./bin/installDeps.sh
+
 FROM build AS development
 
 COPY --chown=etherpad:etherpad ./src/ ./src/
@@ -141,7 +143,6 @@ COPY --chown=etherpad:etherpad ./src ./src
 COPY --chown=etherpad:etherpad --from=adminbuild /opt/etherpad-lite/src/templates/admin ./src/templates/admin
 COPY --chown=etherpad:etherpad --from=adminbuild /opt/etherpad-lite/src/static/oidc ./src/static/oidc
 
-RUN chmod +x /bin/installDeps.sh
 
 RUN bin/installDeps.sh && rm -rf ~/.npm && rm -rf ~/.local && rm -rf ~/.cache && \
     if [ ! -z "${ETHERPAD_PLUGINS}" ] || [ ! -z "${ETHERPAD_LOCAL_PLUGINS}" ] || [ ! -z "${ETHERPAD_GITHUB_PLUGINS}" ]; then \
