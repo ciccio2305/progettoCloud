@@ -1,1 +1,0 @@
-import{y as c,w as v,T as y,U as p,V as r}from"./index.96ff6eb1.js";const n=/^on/,o=[];Object.keys(globalThis).forEach(t=>{n.test(t)&&o.push(t.replace(n,""))});function i(t){const a=r,s=[];function l(e){p(a,e)}c(()=>{const e=t();o.forEach(e instanceof Element?_=>s.push(v(e,_,l)):_=>s.push(e.$on(_,l)))}),y(()=>{for(;s.length;)s.pop()()})}export{i as u};
