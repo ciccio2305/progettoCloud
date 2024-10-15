@@ -37,7 +37,7 @@ jobs:
 
     - name: Move build output to Python folder
       run: |
-        mv "./Svelte Frontend/build/*" "./Server Python/build/"
+        mv ./Svelte\ Frontend/build/* ./Server\ Python/build/
 
   build-and-push:
     runs-on: ubuntu-latest
