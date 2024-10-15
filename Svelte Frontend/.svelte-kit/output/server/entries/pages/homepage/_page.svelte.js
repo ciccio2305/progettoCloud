@@ -323,8 +323,8 @@ const MiddleLeft = create_ssr_component(($$result, $$props, $$bindings, slots) =
     <div class="malus svelte-7qksok">3% in meno dello scorso mese</div>
 </div>`;
 });
-function clean(props) {
-  let { data, type, options, plugins, children, $$scope, $$slots, ...rest } = props;
+function clean(props2) {
+  let { data: data2, type: type2, options: options2, plugins: plugins2, children, $$scope, $$slots, ...rest } = props2;
   return rest;
 }
 const Chart = create_ssr_component(($$result, $$props, $$bindings, slots) => {

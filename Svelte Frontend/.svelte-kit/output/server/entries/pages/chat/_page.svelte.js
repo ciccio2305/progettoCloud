@@ -440,7 +440,7 @@ const WebSocket_1 = create_ssr_component(($$result, $$props, $$bindings, slots) 
   if (secret != null) {
     toSend = localStorage.getItem("secretKey");
   }
-  var socket = new WebSocket("wss://chat.justsmart.it/v0/channels?apikey=AQEAAAABAAD_rAp4DJh05a1HAwFT3A6K");
+  var socket = new WebSocket("ws://chat.justsmart.it/v0/channels?apikey=AQEAAAABAAD_rAp4DJh05a1HAwFT3A6K");
   let id = "";
   socket.onopen = function(e) {
     console.log("[open] Connection established");

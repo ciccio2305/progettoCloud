@@ -21,6 +21,8 @@
   },
   "type": "module",
   "dependencies": {
+    "chart.js": "^4.4.4",
+    "svelte-chartjs": "^3.1.5",
     "tribunale": "file:"
   }
 }

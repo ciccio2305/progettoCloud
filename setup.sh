@@ -40,6 +40,9 @@ sudo cp crictl /usr/local/bin/
 # It is a bridge used in Kubernetes to integrate Docker as a Container Runtime Interface (CRI) compliant runtime.
 # It translates Kubernetes container runtime calls into Docker's native API calls.
 
+##kubectl proxy --port=8080
+##sudo kubectl port-forward nginx-deployment-fb84c5749-sbdf2 80:80 --address=0.0.0.0
+
 git clone https://github.com/Mirantis/cri-dockerd.git
 cd cri-dockerd
 mkdir bin

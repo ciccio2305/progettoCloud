@@ -1,0 +1,56 @@
+---
+
+- hosts: EC2_server
+  become: true
+  tasks:
+
+    - name: Copy Kubernetes Manifests from GitHub
+      copy:
+        src: ../Kubernetes/
+        dest: /home/ubuntu/kubernetes/
+        mode: "777"
+
+    - name: Copy setup.sh from GitHub
+      copy:
+        src: ../setup.sh
+        dest: /home/ubuntu/
+        mode: "777"
+
+    - name: Run setup.sh
+      shell: "./setup.sh"
+
+    - name: Delete Minikube
+      shell: "minikube delete --all"
+
+    - name: Start Minikube
+      become: false
+      shell: "minikube start --driver=none --container-runtime=docker --cri-socket=/var/run/cri-dockerd.sock"
+
+    - name: Apply Kubernetes Manifests
+      become: false
+      shell: "kubectl apply -f /home/ubuntu/kubernetes/"
+
+    - name: Wait for myspotify pod to be running
+      become: false
+      shell: |
+        until kubectl get pods -n elk -l app=my-spotify | grep -m 1 '1/1'; do
+          sleep 1
+        done
+
+    - name: Get the name of the myspotify pod
+      become: false
+      shell: "kubectl get pods -n elk -l app=my-spotify -o jsonpath='{.items[0].metadata.name}'"
+      register: myspotify_pod_name
+
+    - name: Perform port forwarding for myspotify pod
+      become: false
+      shell: "kubectl port-forward {{ myspotify_pod_name.stdout }} 8080:8000 -n elk"
+      async: 600
+      poll: 0
+
+
+
+    
+
+    
+
