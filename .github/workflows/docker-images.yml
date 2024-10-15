@@ -83,7 +83,7 @@ jobs:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
 
-      - name: Build and Push Docker Image
+      - name: Build and Push Docker Image mongo
         uses: docker/build-push-action@v6
         with:
           platforms: linux/amd64,linux/arm64
@@ -91,7 +91,7 @@ jobs:
           context: ${{ matrix.image_mongo.context }}
           push: true
 
-      - name: Build and Push Docker Image
+      - name: Build and Push Docker Image etherpad
         uses: docker/build-push-action@v6
         with:
           platforms: linux/amd64,linux/arm64
@@ -100,7 +100,7 @@ jobs:
           push: true
 
 
-      - name: Build and Push Docker Image
+      - name: Build and Push Docker Image server
         uses: docker/build-push-action@v6
         with:
           platforms: linux/amd64,linux/arm64
@@ -108,7 +108,7 @@ jobs:
           context: ${{ matrix.image_server.context }}
           push: true
 
-      - name: Build and Push Docker Image
+      - name: Build and Push Docker Image tinode
         uses: docker/build-push-action@v6
         with:
           platforms: linux/amd64,linux/arm64
