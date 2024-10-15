@@ -26,7 +26,7 @@ jobs:
 
     - name: Build Svelte frontend
       working-directory: ./Svelte Frontend
-      run: npm run build
+      run: npm run build --legacy-peer-deps
 
     - name: Move build output to Python folder
       run: |
