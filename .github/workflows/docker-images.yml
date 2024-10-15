@@ -47,11 +47,11 @@ jobs:
 
         image_pad:
           - name: etherpad
-            context: ./etherpad-lite/
+            context: ./etherpad-lite
             tag: ciccio2305/justsmartetherpad:latest
         image_mongo:
           - name: mongo
-            context: ./mongo/
+            context: ./mongo
             tag: ciccio2305/justsmartmongo:latest
         image_server:
           - name: server
