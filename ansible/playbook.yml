@@ -6,7 +6,7 @@
 
     - name: Copy Kubernetes Manifests from GitHub
       copy:
-        src: ../Kubernetes/
+        src: ../kubernetes/
         dest: /home/ubuntu/kubernetes/
         mode: "777"
 
