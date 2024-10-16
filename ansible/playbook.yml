@@ -17,7 +17,7 @@
         mode: "777"
 
     - name: Run sutupDocker.sh
-      shell: "./sutupDocker.sh"
+      shell: "sudo ./sutupDocker.sh"
 
     - name: Delete Minikube
       shell: "minikube delete --all"
