@@ -21,24 +21,11 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      # Crea un file temporaneo per la chiave SSH
-      
-     
-      - name: Set up SSH agent
-        uses: webfactory/ssh-agent@v0.5.3
-        with:
-          ssh-private-key: ${{ secrets.AWS_SSH_KEY }}
-
-      # Debug: Verifica che la connessione SSH funzioni
-      - name: Test SSH connection
-        run: |
-          ssh -o StrictHostKeyChecking=no ${{ secrets.EC2_USER }}@${{ secrets.EC2_DOMAIN }} echo "SSH connection successful"
-
-      # Esegui il playbook Ansible senza specificare la chiave, poiché ssh-agent gestisce l'autenticazione
-      - name: Deploy by using Ansible Playbook
+      - name: Deploy by using Ansible Playbook Part 1
         uses: dawidd6/action-ansible-playbook@v2
         with:
           playbook: ./ansible/playbook.yml
+          key: ${{ secrets.AWS_SSH_KEY }}
           inventory: |
             [EC2_server]
             ${{ secrets.EC2_DOMAIN }} ansible_user=${{ secrets.EC2_USER }}
