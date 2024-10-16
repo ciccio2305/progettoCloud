@@ -22,33 +22,27 @@ jobs:
         uses: actions/checkout@v4
 
       # Crea un file temporaneo per la chiave SSH
-      - name: Create SSH key file
-        run: |
-          echo "${{ secrets.AWS_SSH_KEY }}" > ansible_key.pem
-          chmod 600 ansible_key.pem  # Assicurati che solo il proprietario possa leggere/scrivere la chiave
+      
+     
+      - name: Set up SSH agent
+        uses: webfactory/ssh-agent@v0.5.3
+        with:
+          ssh-private-key: ${{ secrets.AWS_SSH_KEY }}
 
-      # Debug: Mostra i permessi e il contenuto del file chiave
-      - name: Check SSH key permissions
-        run: ls -l ansible_key.pem
-
-      # Debug: Prova la connessione SSH manualmente
+      # Debug: Verifica che la connessione SSH funzioni
       - name: Test SSH connection
         run: |
-          ssh -i ansible_key.pem -o StrictHostKeyChecking=no ${{ secrets.EC2_USER }}@${{ secrets.EC2_DOMAIN }} echo "SSH connection successful"
+          ssh -o StrictHostKeyChecking=no ${{ secrets.EC2_USER }}@${{ secrets.EC2_DOMAIN }} echo "SSH connection successful"
 
-      # Esegui il playbook Ansible usando la chiave salvata
+      # Esegui il playbook Ansible senza specificare la chiave, poiché ssh-agent gestisce l'autenticazione
       - name: Deploy by using Ansible Playbook
         uses: dawidd6/action-ansible-playbook@v2
         with:
           playbook: ./ansible/playbook.yml
-          key: ansible_key.pem  # Usa il file chiave creato
           inventory: |
             [EC2_server]
             ${{ secrets.EC2_DOMAIN }} ansible_user=${{ secrets.EC2_USER }}
 
-      # Pulizia del file della chiave SSH dopo l'uso
-      - name: Cleanup SSH key file
-        run: rm -f ansible_key.pem
       # - name: Deploy by using Ansible Playbook Part 2
       #   uses: dawidd6/action-ansible-playbook@v2
       #   with:
