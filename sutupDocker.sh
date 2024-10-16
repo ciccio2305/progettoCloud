@@ -1,5 +1,7 @@
 #!/bin/bash
 
+#crea un file con scritto ciao
+echo "Ciao" > ciao.txt
 # Aggiornamento del sistema
 echo "Sistema aggiornato."
 # Add Docker's official GPG key:
