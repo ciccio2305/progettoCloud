@@ -5,16 +5,9 @@ on:
   push:
     branches:
       - main
-    paths:
-      - 'Svelte Frontend/**'
-      - 'mongo/**'
-      - 'Server Python/**'
-      - 'etherpad-lite/**'
-      - 'tinode/**'
 jobs:
 
   svelte-build:
-    if: contains(github.event.head_commit.modified, 'Svelte Frontend/') 
     runs-on: ubuntu-latest
 
     steps:
@@ -91,7 +84,6 @@ jobs:
           password: ${{ secrets.DOCKERHUB_TOKEN }}
 
       - name: Build and Push Docker Image mongo
-        if: contains(github.event.head_commit.modified, 'mongo/')
         uses: docker/build-push-action@v6
         with:
           platforms: linux/amd64,linux/arm64
@@ -99,18 +91,7 @@ jobs:
           context: ${{ matrix.image_mongo.context }}
           push: true
 
-      - name: Build and Push Docker Image etherpad
-        if: contains(github.event.head_commit.modified, 'etherpad-lite/') 
-        uses: docker/build-push-action@v6
-        with:
-          platforms: linux/amd64,linux/arm64
-          tags: ${{ matrix.image_pad.tag }}
-          context: ${{ matrix.image_pad.context }}
-          push: true
-
-
       - name: Build and Push Docker Image server
-        if: contains(github.event.head_commit.modified, 'Server Python/')
         uses: docker/build-push-action@v6
         with:
           platforms: linux/amd64,linux/arm64
@@ -119,7 +100,6 @@ jobs:
           push: true
 
       - name: Build and Push Docker Image tinode
-        if: contains(github.event.head_commit.modified, 'tinode/')
         uses: docker/build-push-action@v6
         with:
           platforms: linux/amd64,linux/arm64
