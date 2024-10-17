@@ -29,25 +29,12 @@ echo "Docker installato." > ciao.txt
 sudo apt install conntrack
 sudo conntrack -L
 
-# Abilitare Docker per l'avvio automatico
-sudo systemctl enable docker
-sudo systemctl start docker
 
-
-echo "Docker abilitato per l'avvio automatico." > ciao.txt
-
-
-# Aggiunta dell'utente al gruppo docker (opzionale, evita di usare sudo con Docker)
-sudo usermod -aG docker $USER
 
 # Installazione di Minikube
 curl -LO https://storage.googleapis.com/minikube/releases/latest/minikube-linux-amd64
 sudo install minikube-linux-amd64 /usr/local/bin/minikube
 
 echo "Minikube installato."> ciao.txt
-
-# Verifica delle installazioni
-docker --version
-minikube version
 
 echo "Installazione completata. Ricorda di disconnetterti e riconnetterti per applicare le modifiche al gruppo docker."

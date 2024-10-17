@@ -19,12 +19,21 @@
     - name: Run sutupDocker.sh
       shell: "sudo ./sutupDocker.sh -y"
 
+    - name: Run sudo systemctl enable docker
+      shell: "sudo systemctl enable docker"
+
+    - name: Run sudo systemctl start docker
+      shell: "sudo systemctl start docker"
+
+    - name: Run sudo usermod -aG docker $USER && newgrp docker
+      shell: "sudo usermod -aG docker $USER && newgrp docker"
+
     - name: Delete Minikube
       shell: "minikube delete --all"
 
     - name: Start Minikube
       become: false
-      shell: "minikube start --driver=none --container-runtime=docker --cri-socket=/var/run/cri-dockerd.sock"
+      shell: "minikube start "
 
     - name: Apply Kubernetes Manifests for mongo
       become: false
