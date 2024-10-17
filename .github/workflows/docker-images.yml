@@ -7,36 +7,6 @@ on:
       - main
 jobs:
 
-  svelte-build:
-    runs-on: ubuntu-latest
-
-    steps:
-    - name: Checkout repository
-      uses: actions/checkout@v3
-
-    - name: Set up Node.js
-      uses: actions/setup-node@v3
-      with:
-        node-version: '18'
-
-    - name: Install dependencies for Svelte frontend
-      working-directory: ./Svelte Frontend
-      run: npm install --legacy-peer-deps
-
-    - name: Build Svelte frontend
-      working-directory: ./Svelte Frontend
-      run: npm run build --legacy-peer-deps
-
-    - name: Create Python build folder if it doesn't exist
-      run: mkdir -p "./Server Python/build/"
-    
-    - name: Clean Python build folder
-      run: |
-        rm -rf "./Server Python/build/*"
-
-    - name: Move build output to Python folder
-      run: |
-        mv ./Svelte\ Frontend/build/* ./Server\ Python/build/
 
   build-and-push:
     runs-on: ubuntu-latest
@@ -68,8 +38,33 @@ jobs:
     #---------------------------------#
 
     steps:
+
       - name: Checkout repository
         uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+
+      - name: Install dependencies for Svelte frontend
+        working-directory: ./Svelte Frontend
+        run: npm install --legacy-peer-deps
+
+      - name: Build Svelte frontend
+        working-directory: ./Svelte Frontend
+        run: npm run build --legacy-peer-deps
+
+      - name: Create Python build folder if it doesn't exist
+        run: mkdir -p "./Server Python/build/"
+      
+      - name: Clean Python build folder
+        run: |
+          rm -rf "./Server Python/build/*"
+
+      - name: Move build output to Python folder
+        run: |
+          mv ./Svelte\ Frontend/build/* ./Server\ Python/build/
 
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v3
