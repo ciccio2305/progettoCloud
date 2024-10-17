@@ -36,6 +36,8 @@
       become: true
       shell: "sudo newgrp docker"
 
+    - name: Reset ssh connection
+      ansible.builtin.meta: reset_connection
     
 
 
