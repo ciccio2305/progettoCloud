@@ -20,19 +20,11 @@
       become: true
       shell: "sudo ./sutupDocker.sh -y"
 
-
-
     - name: Run sudo usermod -aG docker $USER 
       become: true
-      shell: "sudo usermod -aG docker $USER"
+      shell: "sudo chmod 666 /var/run/docker.sock"
     
-    - name: Run newgrp docker
-      become: true
-      shell: "sudo systemctl restart docker"
 
-    - name: Reset ssh connection
-      ansible.builtin.meta: reset_connection
-    
 
 
 
