@@ -38,6 +38,12 @@
       become: false
       shell: "kubectl get pods -l app=nginx-just-smart -o jsonpath='{.items[0].metadata.name}'"
       register: nginx_pod_name
+    
+    - name: Perform port forwarding for nginx pod
+      become: true
+      shell: "sudo kubectl proxy --port=8080"
+      async: 600
+      poll: 0
 
     - name: Perform port forwarding for nginx pod
       become: true
