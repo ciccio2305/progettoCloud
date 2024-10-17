@@ -10,6 +10,7 @@ echo "Sistema aggiornato." > ciao.txt
 sudo install -m 0755 -d /etc/apt/keyrings
 sudo curl -fsSL https://download.docker.com/linux/ubuntu/gpg -o /etc/apt/keyrings/docker.asc
 sudo chmod a+r /etc/apt/keyrings/docker.asc
+
 echo "Sistema aggiornato 2 " > ciao.txt
 
 # Add the repository to Apt sources:
@@ -21,7 +22,7 @@ echo \
 sudo apt-get update
 
 # Installazione di Docker
-sudo apt-get install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
+sudo apt-get install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin -y
 
 echo "Docker installato." > ciao.txt
 
