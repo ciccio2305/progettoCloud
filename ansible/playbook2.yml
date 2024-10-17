@@ -11,7 +11,7 @@
     - name: Start Minikube
       become: false
       shell: "minikube start "
-
+ 
     - name: Apply Kubernetes Manifests for mongo
       become: false
       shell: "kubectl apply -f /home/ubuntu/kubernetes/mongo.yml"
@@ -40,7 +40,7 @@
       register: nginx_pod_name
 
     - name: Perform port forwarding for nginx pod
-      become: false
+      become: true
       shell: "sudo kubectl port-forward {{ nginx_pod_name.stdout }} 80:80  --address=0.0.0.0"
       async: 600
       poll: 0
