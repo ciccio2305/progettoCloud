@@ -1,0 +1,50 @@
+---
+
+- hosts: EC2_server
+  become: true
+  tasks:
+
+    - name: Delete Minikube
+      become: false
+      shell: "minikube delete --all"
+
+    - name: Start Minikube
+      become: false
+      shell: "minikube start "
+
+    - name: Apply Kubernetes Manifests for mongo
+      become: false
+      shell: "kubectl apply -f /home/ubuntu/kubernetes/mongo.yml"
+
+    - name: Wait for mongo pod to be running
+      become: false
+      shell: |
+        until kubectl get pods -l app=mongo | grep -m 1 '1/1'; do
+          sleep 1
+        done
+
+    - name: Apply Kubernetes Manifests
+      become: false
+      shell: "kubectl apply -f /home/ubuntu/kubernetes/"
+
+    - name: Wait for nginx pod to be running
+      become: false
+      shell: |
+        until kubectl get pods -l app=mongo | grep -m 1 '1/1'; do
+          sleep 1
+        done
+
+    - name: Get the name of the nginx pod
+      become: false
+      shell: "kubectl get pods -l app=nginx-just-smart -o jsonpath='{.items[0].metadata.name}'"
+      register: nginx_pod_name
+
+    - name: Perform port forwarding for nginx pod
+      become: false
+      shell: "sudo kubectl port-forward {{ nginx_pod_name.stdout }} 80:80  --address=0.0.0.0"
+      async: 600
+      poll: 0
+
+    
+
+
