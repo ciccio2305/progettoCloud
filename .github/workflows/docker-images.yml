@@ -85,6 +85,10 @@ jobs:
           tags: ${{ matrix.image_mongo.tag }}
           context: ${{ matrix.image_mongo.context }}
           push: true
+      
+      - name: ls
+        run: |
+          ls "./Server Python/"
 
       - name: Build and Push Docker Image server
         uses: docker/build-push-action@v6
