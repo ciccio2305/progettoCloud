@@ -44,7 +44,7 @@
       shell: "kubectl proxy --port=8080"
       async: 600
       poll: 0
-      
+
     - name: sleep
       become: true
       shell: "sleep 10"
@@ -54,6 +54,10 @@
       shell: "sudo kubectl port-forward {{ nginx_pod_name.stdout }} 80:80  --address=0.0.0.0"
       async: 600
       poll: 0
+
+    - name: sleep
+      become: true
+      shell: "sleep 10"
 
     
 
