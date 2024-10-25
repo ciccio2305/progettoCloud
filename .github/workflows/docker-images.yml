@@ -60,7 +60,7 @@ jobs:
       
       - name: Clean Python build folder
         run: |
-          rm -rf "./Server Python/build/*"
+          rm -rf ./Server\ Python/build/
 
       - name: Move build output to Python folder
         run: |
