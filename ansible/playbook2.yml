@@ -41,7 +41,7 @@
     
     - name: sudo kubectl proxy --port=8080
       become: false
-      shell: "kubectl proxy --port=8080"
+      shell: "nohup kubectl proxy --port=8080"
       async: 600
       poll: 0
 
@@ -51,7 +51,7 @@
 
     - name: Perform port forwarding for nginx pod
       become: true
-      shell: "sudo kubectl port-forward {{ nginx_pod_name.stdout }} 80:80  --address=0.0.0.0"
+      shell: "nohup sudo kubectl port-forward {{ nginx_pod_name.stdout }} 80:80  --address=0.0.0.0"
       async: 600
       poll: 0
 
