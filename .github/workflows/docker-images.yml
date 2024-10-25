@@ -61,6 +61,9 @@ jobs:
       - name: Clean Python build folder
         run: |
           rm -rf ./Server\ Python/build/
+      
+      - name: Create Python build folder
+        run: mkdir -p "./Server Python/build/"
 
       - name: Move build output to Python folder
         run: |
