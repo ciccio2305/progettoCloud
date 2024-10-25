@@ -30,8 +30,6 @@ echo "Docker installato." > ciao.txt
 sudo apt install conntrack
 sudo conntrack -L
 
-
-
 # Installazione di Minikube
 curl -LO https://storage.googleapis.com/minikube/releases/latest/minikube-linux-amd64
 sudo install minikube-linux-amd64 /usr/local/bin/minikube
