@@ -27,37 +27,16 @@
       become: false
       shell: "kubectl apply -f /home/ubuntu/kubernetes/"
 
-    - name: Wait for nginx pod to be running
-      become: false
-      shell: |
-        until kubectl get pods -l app=mongo | grep -m 1 '1/1'; do
-          sleep 1
-        done
-
-    - name: Get the name of the nginx pod
-      become: false
-      shell: "kubectl get pods -l app=nginx-just-smart -o jsonpath='{.items[0].metadata.name}'"
-      register: nginx_pod_name
-    
     - name: sudo kubectl proxy --port=8080
       become: false
       shell: "nohup kubectl proxy --port=8080"
-      async: 600
+      async: 60000
       poll: 0
 
     - name: sleep
-      become: true
+      become: false
       shell: "sleep 10"
 
-    - name: Perform port forwarding for nginx pod
-      become: true
-      shell: "nohup sudo kubectl port-forward {{ nginx_pod_name.stdout }} 80:80  --address=0.0.0.0"
-      async: 600
-      poll: 0
-
-    - name: sleep
-      become: true
-      shell: "sleep 10"
 
     
 
