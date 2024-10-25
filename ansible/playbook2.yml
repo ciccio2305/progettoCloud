@@ -33,11 +33,6 @@
       async: 60000
       poll: 0
 
-    - name: sleep
-      become: false
-      shell: "sleep 10"
-
-
     
 
 

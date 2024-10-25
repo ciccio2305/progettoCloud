@@ -16,11 +16,7 @@
       register: nginx_pod_name
 
     - name: Perform port forwarding for nginx pod
-      become: false
+      become: true
       shell: "nohup sudo kubectl port-forward {{ nginx_pod_name.stdout }} 80:80  --address=0.0.0.0"
       async: 60000
       poll: 0
-
-    - name: sleep
-      become: true
-      shell: "sleep 10"
