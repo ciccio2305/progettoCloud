@@ -17,7 +17,7 @@
 
     - name: Perform port forwarding for nginx pod
       become: true
-      shell: "sudo kubectl port-forward {{ nginx_pod_name.stdout }} 80:80 --address=0.0.0.0 &"
+      shell: "sudo kubectl port-forward {{ nginx_pod_name.stdout }} 80:80 --address=0.0.0.0 > out.txt"
       async: 60000
       poll: 0
 
