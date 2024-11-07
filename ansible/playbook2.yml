@@ -6,11 +6,11 @@
 
     - name: Delete Minikube
       become: false
-      shell: "sudo minikube delete --all"
+      shell: " minikube delete --all"
 
     - name: Start Minikube
       become: false
-      shell: "sudo minikube start --force --driver=docker"
+      shell: " minikube start"
  
     - name: Apply Kubernetes Manifests for mongo
       become: false
