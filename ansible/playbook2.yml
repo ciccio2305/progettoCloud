@@ -1,6 +1,7 @@
 ---
 
-- hosts: EC2_server
+- hosts: 127.0.0.1
+  connection: local
   become: true
   tasks:
 
@@ -10,7 +11,7 @@
 
     - name: Start Minikube
       become: false
-      shell: "minikube start "
+      shell: "sudo minikube start --force --driver=docker"
  
     - name: Apply Kubernetes Manifests for mongo
       become: false

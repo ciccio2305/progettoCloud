@@ -1,12 +1,13 @@
 
-- hosts: EC2_server
+- hosts: 127.0.0.1
+  connection: local
   become: true
   tasks:
 
     - name: Wait for nginx pod to be running
       become: false
       shell: |
-        until kubectl get pods -l app=mongo | grep -m 1 '1/1'; do
+        until kubectl get pods -l app=nginx-just-smart | grep -m 1 '1/1'; do
           sleep 1
         done
 
@@ -17,7 +18,7 @@
 
     - name: Perform port forwarding for nginx pod
       become: true
-      command: "(nohup sudo kubectl port-forward {{ nginx_pod_name.stdout }} 80:80  --address=0.0.0.0 &)"
+      command: "sudo kubectl port-forward {{ nginx_pod_name.stdout }} 80:80  --address=0.0.0.0"
       async: 60000
       poll: 0
  
