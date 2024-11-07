@@ -19,7 +19,7 @@
 
     - name: Perform port forwarding for nginx pod
       become: true
-      command: "sudo kubectl port-forward {{ nginx_pod_name.stdout }} 80:80  --address=0.0.0.0"
+      command: "sudo kubectl port-forward nginx-deployment-fb84c5749-zs2jr 80:80 --address=0.0.0.0 --kubeconfig=/home/ubuntu/.kube/config"
       async: 60000
       poll: 0
  
