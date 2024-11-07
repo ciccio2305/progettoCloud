@@ -6,7 +6,7 @@
 
     - name: Delete Minikube
       become: false
-      shell: "minikube delete --all"
+      shell: "sudo minikube delete --all"
 
     - name: Start Minikube
       become: false
