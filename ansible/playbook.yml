@@ -7,13 +7,13 @@
 
     - name: Copy Kubernetes Manifests from GitHub
       copy:
-        src: ./kubernetes/
+        src: ../kubernetes/
         dest: /home/ubuntu/kubernetes/
         mode: "777"
 
     - name: Copy sutupDocker.sh from GitHub
       copy:
-        src: ./sutupDocker.sh
+        src: ../sutupDocker.sh
         dest: /home/ubuntu/
         mode: "777"
 
