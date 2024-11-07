@@ -27,11 +27,6 @@
       become: false
       shell: "kubectl apply -f /home/ubuntu/kubernetes/"
 
-    - name: sudo kubectl proxy --port=8080
-      become: false
-      shell: "nohup kubectl proxy --port=8080"
-      async: 60000
-      poll: 0
 
     
 

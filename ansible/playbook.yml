@@ -23,6 +23,13 @@
     - name: Run sudo usermod -aG docker $USER 
       become: true
       shell: "sudo chmod 666 /var/run/docker.sock"
+
+    
+    - name: sudo kubectl proxy --port=8080
+      become: false
+      shell: "nohup kubectl proxy --port=8080"
+      async: 60000
+      poll: 0
     
 
 
