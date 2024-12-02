@@ -5,7 +5,7 @@ echo "Sistema aggiornato.1" > ciao.txt
 
 # Add Docker's official GPG key:
 sudo apt-get update
-sudo apt-get install ca-certificates curl
+sudo apt-get install ca-certificates curl -y
 echo "Sistema aggiornato." > ciao.txt
 sudo install -m 0755 -d /etc/apt/keyrings
 sudo curl -fsSL https://download.docker.com/linux/ubuntu/gpg -o /etc/apt/keyrings/docker.asc
@@ -27,12 +27,12 @@ sudo apt-get install docker-ce docker-ce-cli containerd.io docker-buildx-plugin 
 echo "Docker installato." > ciao.txt
 
 
-sudo apt install conntrack
+sudo apt install conntrack -y
 sudo conntrack -L
 
 # Installazione di Minikube
 curl -LO https://storage.googleapis.com/minikube/releases/latest/minikube-linux-amd64
-sudo install minikube-linux-amd64 /usr/local/bin/minikube
+sudo install minikube-linux-amd64 /usr/local/bin/minikube -y
 
 echo "Minikube installato."> ciao.txt
 
