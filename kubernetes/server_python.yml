@@ -1,12 +1,13 @@
+#kubectl apply -f https://github.com/kubernetes-sigs/metrics-server/releases/latest/download/components.yaml
+
 apiVersion: apps/v1
 kind: Deployment
 metadata:
   labels:
     node.type: python-server
   name: python-server
- # namespace: elk
 spec:
-  replicas: 1
+  replicas: 2  # Numero iniziale di repliche (HPA modificherà dinamicamente questo valore)
   selector:
     matchLabels:
       app: just-smart
@@ -21,7 +22,13 @@ spec:
           ports:
             - containerPort: 5000
               protocol: TCP
+          resources:
+            requests:
+              cpu: 100m
+            limits:
+              cpu: 1000m
       restartPolicy: Always
+
 ---
 apiVersion: v1
 kind: Service
@@ -29,14 +36,32 @@ metadata:
   labels:
     es.service: python-server-service
   name: python-server-service
-  #namespace: elk
 spec:
   ports:
     - name: "http"
       port: 5000
-      #targetPort: 5000
       nodePort: 30000
   selector:
     app: just-smart
   type: NodePort
-  
+
+
+---
+apiVersion: autoscaling/v2
+kind: HorizontalPodAutoscaler
+metadata:
+  name: python-server-hpa
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: python-server
+  minReplicas: 2
+  maxReplicas: 10
+  metrics:
+    - type: Resource
+      resource:
+        name: cpu
+        target:
+          type: Utilization
+          averageUtilization: 50  # Scala quando l'utilizzo medio della CPU supera il 50%

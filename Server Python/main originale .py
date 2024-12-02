@@ -17,8 +17,8 @@ from memo import Memo as MEMO
 from roles import Role as ROLE
 from utils import get_fatherpath_and_filename_from_path, parse_path, encode_pad_name, parse_json
 from config import error_message, not_loggedin_error, frontend_folder, mongo, Config
-import multiprocessing
-import threading
+
+time.sleep(5)
 
 app = Flask(__name__,
             static_folder=frontend_folder+'_app',
@@ -480,28 +480,7 @@ def get_profile_pic():
     return json.dumps({"base39":img_base39})
 
 
-# Funzione che genera un carico CPU
-def cpu_load():
-    print("Inizio carico CPU")
-    while True:
-        # Operazione intensa sulla CPU per generare carico
-        x = 0
-        for i in range(1000000):
-            x += x * (i ^ 2) 
-
-# Funzione che avvia nuovi processi di carico CPU ogni 10 secondi
-def start_load():
-    while True:
-        # Creare un nuovo processo per simulare il carico
-        process = multiprocessing.Process(target=cpu_load)
-        process.start()
-        print(f"Nuovo processo carico CPU avviato, PID: {process.pid}")
-
-        # Attendi 10 secondi prima di avviare un altro processo
-        time.sleep(0.1)
-
 if __name__ == '__main__':
-    
     user_management.create_admin_user()
     user_management.insert_sezione("primasezionecivile")
     user_management.insert_sezione("secondasezionecivile")
@@ -521,11 +500,4 @@ if __name__ == '__main__':
         "quintasezionecivile"), "quintasezionecivile")
     real_file_system.create_root_dir("sestasezionecivile", user_management.get_etherpad_id_sezione(
         "sestasezionecivile"), "sestasezionecivile")
-
-    load_thread = multiprocessing.Process(target=start_load)
-    load_thread.start()
-
     app.run(debug=True, threaded=True, host='0.0.0.0')
-
-
-    

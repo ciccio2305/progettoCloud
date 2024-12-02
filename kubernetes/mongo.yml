@@ -9,26 +9,28 @@ spec:
     - protocol: TCP
       port: 27017
       targetPort: 27017
+  clusterIP: None  # Headless service per la comunicazione tra i pod del replica set
 
 ---
 apiVersion: apps/v1
-kind: Deployment
+kind: StatefulSet
 metadata:
-  name: mongo-deployment
+  name: mongo
 spec:
+  serviceName: mongo-service
+  replicas: 3
   selector:
     matchLabels:
       app: mongo
-  replicas: 1
-  template:                 # Corretto da metadata: a template:
+  template:
     metadata:
       labels:
         app: mongo
-    spec:                     # Aggiunto spec: all'interno di template:
+    spec:
       containers:
         - name: mongo
           image: ciccio2305/justsmartmongo:latest
-          args: ["--replSet", "rs0"]  # Aggiungi questa riga per abilitare il replicaset
+          args: ["--replSet", "rs0"]
           livenessProbe:
             exec:
               command:
@@ -38,24 +40,16 @@ spec:
                   mongosh --quiet --eval "try { rs.initiate() } catch(e) { rs.status().ok }" | grep 1
             initialDelaySeconds: 5
             periodSeconds: 30
-          ports:                # Indentazione corretta, al livello di `containers`
+          ports:
             - containerPort: 27017
-          volumeMounts:          # Indentazione corretta, al livello di `containers`
+          volumeMounts:
             - name: mongo-storage
               mountPath: /data/db
-      volumes:                  # Indentazione corretta, al livello di `spec` (non sotto `containers`)
-        - name: mongo-storage
-          persistentVolumeClaim:
-            claimName: mongo-pvc
-
----
-apiVersion: v1
-kind: PersistentVolumeClaim
-metadata:
-  name: mongo-pvc
-spec:
-  accessModes:
-    - ReadWriteOnce
-  resources:
-    requests:
-      storage: 1Gi
+  volumeClaimTemplates:
+    - metadata:
+        name: mongo-storage
+      spec:
+        accessModes: ["ReadWriteOnce"]
+        resources:
+          requests:
+            storage: 1Gi
