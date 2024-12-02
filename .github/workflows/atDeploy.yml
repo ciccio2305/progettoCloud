@@ -38,6 +38,7 @@ jobs:
           inventory: |
             [EC2_server]
             ${{ secrets.EC2_DOMAIN }} ansible_user=${{ secrets.EC2_USER }}
+            
       - name: Deploy by using Ansible Playbook Part 1
         uses: dawidd6/action-ansible-playbook@v2
         with:

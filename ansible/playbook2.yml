@@ -11,7 +11,16 @@
     - name: Start Minikube
       become: false
       shell: " minikube start"
- 
+
+    - name: Apply Kubernetes Manifests for metrics-server
+      become: false
+      shell: " kubectl apply -f https://github.com/kubernetes-sigs/metrics-server/releases/latest/download/components.yaml"
+
+    - name: Apply patch for kube 
+      become: false
+      shell: "kubectl patch deployment metrics-server -n kube-system --type='json' -p='[{\"op\": \"add\", \"path\": \"/spec/template/spec/containers/0/args/-\", \"value\": \"--kubelet-insecure-tls\"}, {\"op\": \"add\", \"path\": \"/spec/template/spec/containers/0/args/-\", \"value\": \"--kubelet-preferred-address-types=InternalIP,Hostname,ExternalIP\"}]'"
+
+
     - name: Apply Kubernetes Manifests for mongo
       become: false
       shell: "kubectl apply -f /home/ubuntu/kubernetes/mongo.yml"
