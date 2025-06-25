@@ -32,7 +32,7 @@ sudo conntrack -L
 
 # Installazione di Minikube
 curl -LO https://storage.googleapis.com/minikube/releases/latest/minikube-linux-amd64
-sudo install minikube-linux-amd64 /usr/local/bin/minikube -y
+sudo install -m 0755 minikube-linux-amd64 /usr/local/bin/minikube
 
 echo "Minikube installato."> ciao.txt
 
