@@ -1,5 +1,5 @@
 ---
-
+ 
 - hosts: EC2_server
   become: true
   tasks:
