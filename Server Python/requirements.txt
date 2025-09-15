@@ -1,8 +1,6 @@
-flask
-datetime
+flask==2.3.3
 pymongo==3.12.3
-bcrypt
-datetime
-flask_cors
-flask_session
-requests
+bcrypt==4.0.1
+flask-cors==4.0.0
+flask-session==0.5.0
+requests==2.31.0
