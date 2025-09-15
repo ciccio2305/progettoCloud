@@ -107,7 +107,6 @@ data:
 
         server {
           listen 27017;  # Ascolta la porta MongoDB
-          server_name db-mongo.justsmart.it;
           proxy_pass mongo-service;  # Instrada le richieste al backend MongoDB
         }
     }
