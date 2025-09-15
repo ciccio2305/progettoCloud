@@ -120,26 +120,13 @@ def login():
 @app.route('/api/logout', methods=['GET'])
 def logout():
     session.pop('user', None)
-    session.pop('email', None)
-    session.pop('section', None)
-    session.pop('ruolo', None)
     return send_from_directory(directory=frontend_folder, path='login.html')
 
 @app.route('/api/whoami', methods=['GET'])
 def whoami():
     if 'user' not in session:
         return json.dumps({'error':'utente non loggato'})
-    
-    # Check if email is in session
-    if 'email' not in session:
-        return json.dumps({'error':'email non trovata nella sessione'})
-    
     user = user_management.find_user_with_email(session['email'])
-    
-    # Check if user was found in database
-    if user is None:
-        return json.dumps({'error':'utente non trovato nel database'})
-    
     return json.dumps({'name': user['name'], 'email': user['email'], 'role': user['ruolo'], 'sezione': user['sezione'], 'propic': user['propic']})
 
 @app.route("/api/upload_picture", methods=["POST"])
