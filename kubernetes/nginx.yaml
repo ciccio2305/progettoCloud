@@ -21,33 +21,7 @@ spec:
           subPath: nginx.conf
         ports:
         - containerPort: 80
-        - containerPort: 27017
-        livenessProbe:
-          httpGet:
-            path: /
-            port: 80
-          initialDelaySeconds: 10
-          periodSeconds: 10
-        readinessProbe:
-          httpGet:
-            path: /
-            port: 80
-          initialDelaySeconds: 5
-          periodSeconds: 5
-        resources:
-          requests:
-            cpu: 100m
-            memory: 64Mi
-          limits:
-            cpu: 500m
-            memory: 256Mi
-        securityContext:
-          allowPrivilegeEscalation: false
-          runAsNonRoot: true
-          runAsUser: 101
-          capabilities:
-            drop:
-              - ALL 
+        - containerPort: 27017 
       volumes:
       - name: nginx-config-volume
         configMap:

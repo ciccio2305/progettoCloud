@@ -22,32 +22,11 @@ spec:
           ports:
             - containerPort: 5000
               protocol: TCP
-          livenessProbe:
-            httpGet:
-              path: /
-              port: 5000
-            initialDelaySeconds: 30
-            periodSeconds: 10
-          readinessProbe:
-            httpGet:
-              path: /
-              port: 5000
-            initialDelaySeconds: 5
-            periodSeconds: 5
           resources:
             requests:
               cpu: 100m
-              memory: 128Mi
             limits:
               cpu: 1000m
-              memory: 1Gi
-          securityContext:
-            allowPrivilegeEscalation: false
-            runAsNonRoot: true
-            runAsUser: 1000
-            capabilities:
-              drop:
-                - ALL
       restartPolicy: Always
 
 ---
