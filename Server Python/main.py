@@ -127,6 +127,8 @@ def whoami():
     if 'user' not in session:
         return json.dumps({'error':'utente non loggato'})
     user = user_management.find_user_with_email(session['email'])
+    if user is None:
+        return json.dumps({'error': 'utente non trovato nel database'})
     return json.dumps({'name': user['name'], 'email': user['email'], 'role': user['ruolo'], 'sezione': user['sezione'], 'propic': user['propic']})
 
 @app.route("/api/upload_picture", methods=["POST"])

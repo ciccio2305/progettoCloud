@@ -23,7 +23,8 @@ class USERS:
             users = self.mongo.utenti_login.Login
             user_mongo = users.find_one({'_id': ObjectId(user_id)})
             return user_mongo
-        except:
+        except Exception as e:
+            print(f"Error finding user with id {user_id}: {str(e)}")
             return None
  
     # trova l'utente mongo con l'email passata
@@ -32,7 +33,8 @@ class USERS:
             users = self.mongo.utenti_login.Login
             existing_user = users.find_one({'email': email})
             return existing_user
-        except:
+        except Exception as e:
+            print(f"Error finding user with email {email}: {str(e)}")
             return None
     # inseriamo la sezione nel database
  
