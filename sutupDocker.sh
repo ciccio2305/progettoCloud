@@ -1,17 +1,11 @@
 #!/bin/bash
 
-#crea un file con scritto ciao
-echo "Sistema aggiornato.1" > ciao.txt
-
 # Add Docker's official GPG key:
 sudo apt-get update
 sudo apt-get install ca-certificates curl -y
-echo "Sistema aggiornato." > ciao.txt
 sudo install -m 0755 -d /etc/apt/keyrings
 sudo curl -fsSL https://download.docker.com/linux/ubuntu/gpg -o /etc/apt/keyrings/docker.asc
 sudo chmod a+r /etc/apt/keyrings/docker.asc
-
-echo "Sistema aggiornato 2 " > ciao.txt
 
 # Add the repository to Apt sources:
 echo \
@@ -24,22 +18,35 @@ sudo apt-get update
 # Installazione di Docker
 sudo apt-get install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin -y
 
-echo "Docker installato." > ciao.txt
-
+echo "Docker installato."
 
 sudo apt install conntrack -y
 sudo conntrack -L
 
 # Installazione di Minikube
+echo "Downloading Minikube..."
 curl -LO https://storage.googleapis.com/minikube/releases/latest/minikube-linux-amd64
-sudo install -m 0755 minikube-linux-amd64 /usr/local/bin/minikube
+if [ -f "minikube-linux-amd64" ]; then
+    sudo install -m 0755 minikube-linux-amd64 /usr/local/bin/minikube
+    echo "Minikube installato."
+    rm minikube-linux-amd64
+else
+    echo "Errore: Download di Minikube fallito"
+    exit 1
+fi
 
-echo "Minikube installato."> ciao.txt
-
+# Installazione di kubectl
+echo "Downloading kubectl..."
 KUBECTL_VERSION=$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)
 curl -LO "https://storage.googleapis.com/kubernetes-release/release/${KUBECTL_VERSION}/bin/linux/amd64/kubectl"
-chmod +x ./kubectl
-sudo mv ./kubectl /usr/local/bin/kubectl
+if [ -f "kubectl" ]; then
+    chmod +x ./kubectl
+    sudo mv ./kubectl /usr/local/bin/kubectl
+    echo "kubectl installato."
+else
+    echo "Errore: Download di kubectl fallito"
+    exit 1
+fi
 
 
 echo "Installazione completata. Ricorda di disconnetterti e riconnetterti per applicare le modifiche al gruppo docker."
