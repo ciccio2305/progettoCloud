@@ -1,6 +1,6 @@
 ---
  
-- hosts: EC2_server
+- hosts: azure_vm
   become: true
   tasks:
 

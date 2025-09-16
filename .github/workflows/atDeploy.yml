@@ -14,7 +14,7 @@ jobs:
     if: ${{ github.event.workflow_run.conclusion == 'success' }}
     
     #----------------------------------------#
-    #   Deploy on AWS EC2 by using Ansible   #
+    #   Deploy on Azure VM by using Ansible  #
     #----------------------------------------#
 
     steps:
@@ -25,28 +25,28 @@ jobs:
         uses: dawidd6/action-ansible-playbook@v2
         with:
           playbook: ./ansible/playbook.yml
-          key: ${{ secrets.AWS_SSH_KEY }}
+          key: ${{ secrets.AZURE_SSH_KEY }}
           inventory: |
-            [EC2_server]
-            ${{ secrets.EC2_DOMAIN }} ansible_user=${{ secrets.EC2_USER }}
+            [azure_vm]
+            ${{ secrets.AZURE_VM_IP }} ansible_user=azureuser
 
       - name: Deploy by using Ansible Playbook Part 1
         uses: dawidd6/action-ansible-playbook@v2
         with:
           playbook: ./ansible/playbook2.yml
-          key: ${{ secrets.AWS_SSH_KEY }}
+          key: ${{ secrets.AZURE_SSH_KEY }}
           inventory: |
-            [EC2_server]
-            ${{ secrets.EC2_DOMAIN }} ansible_user=${{ secrets.EC2_USER }}
+            [azure_vm]
+            ${{ secrets.AZURE_VM_IP }} ansible_user=azureuser
             
       - name: Deploy by using Ansible Playbook Part 1
         uses: dawidd6/action-ansible-playbook@v2
         with:
           playbook: ./ansible/playbook3.yml
-          key: ${{ secrets.AWS_SSH_KEY }}
+          key: ${{ secrets.AZURE_SSH_KEY }}
           inventory: |
-            [EC2_server]
-            ${{ secrets.EC2_DOMAIN }} ansible_user=${{ secrets.EC2_USER }}
+            [azure_vm]
+            ${{ secrets.AZURE_VM_IP }} ansible_user=azureuser
 
       # - name: Deploy by using Ansible Playbook Part 2
       #   uses: dawidd6/action-ansible-playbook@v2
