@@ -52,7 +52,7 @@ spec:
   ports:
     - name: "http"
       port: 9001
-      nodePort: 30001
+      nodePort: 30081
   selector:
     app: pad-just-smart
   type: NodePort

@@ -45,7 +45,7 @@ spec:
   ports:
     - name: "http"
       port: 6060
-      nodePort: 30002
+      nodePort: 30080
   selector:
     app: chat-just-smart
   type: NodePort
