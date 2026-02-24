@@ -4,6 +4,22 @@
   become: true
   tasks:
 
+    - name: Check if Docker is installed
+      become: true
+      command: which docker
+      register: docker_check
+      changed_when: false
+      failed_when: false
+
+    - name: Install Docker (official script) when not present
+      become: true
+      shell: |
+        curl -fsSL https://get.docker.com | sh
+        systemctl start docker
+        systemctl enable docker
+        usermod -aG docker {{ ansible_user_id }}
+      when: docker_check.rc != 0
+
     - name: Ensure Docker service is started (if present)
       become: true
       shell: "systemctl start docker 2>/dev/null || true"
@@ -17,9 +33,9 @@
 
     - name: Start Minikube with Docker driver
       become: false
-      shell: "minikube start --driver=docker"
+      shell: "sg docker -c 'minikube start --driver=docker'"
       environment:
-        PATH: "/usr/local/bin:/usr/bin:/bin:{{ ansible_env.PATH | default('') }}"
+        PATH: "/usr/local/bin:/usr/bin:/bin"
 
     - name: Apply Kubernetes Manifests for metrics-server
       become: false
