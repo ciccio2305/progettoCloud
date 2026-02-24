@@ -28,7 +28,7 @@ jobs:
           key: ${{ secrets.AWS_SSH_KEY }}
           inventory: |
             [EC2_server]
-            ${{ secrets.EC2_DOMAIN }} ansible_user=azureuser
+            ${{ secrets.EC2_DOMAIN }} ansible_user=ciccio_conti0909
 
       - name: Deploy by using Ansible Playbook Part 1
         uses: dawidd6/action-ansible-playbook@v2
@@ -37,7 +37,7 @@ jobs:
           key: ${{ secrets.AWS_SSH_KEY }}
           inventory: |
             [EC2_server]
-            ${{ secrets.EC2_DOMAIN }} ansible_user=azureuser
+            ${{ secrets.EC2_DOMAIN }} ansible_user=ciccio_conti0909
             
       - name: Deploy by using Ansible Playbook Part 1
         uses: dawidd6/action-ansible-playbook@v2
@@ -46,7 +46,7 @@ jobs:
           key: ${{ secrets.AWS_SSH_KEY }}
           inventory: |
             [EC2_server]
-            ${{ secrets.EC2_DOMAIN }} ansible_user=azureuser
+            ${{ secrets.EC2_DOMAIN }} ansible_user=ciccio_conti0909
 
       # - name: Deploy by using Ansible Playbook Part 2
       #   uses: dawidd6/action-ansible-playbook@v2
