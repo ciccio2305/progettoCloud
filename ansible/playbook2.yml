@@ -4,11 +4,11 @@
   become: true
   tasks:
 
-    - name: Ensure Docker service is started
+    - name: Ensure Docker service is started (if present)
       become: true
-      systemd:
-        name: docker
-        state: started
+      shell: "systemctl start docker 2>/dev/null || true"
+      changed_when: false
+      failed_when: false
 
     - name: Delete Minikube
       become: false
