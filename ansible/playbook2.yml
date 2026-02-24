@@ -4,13 +4,22 @@
   become: true
   tasks:
 
+    - name: Ensure Docker service is started
+      become: true
+      systemd:
+        name: docker
+        state: started
+
     - name: Delete Minikube
       become: false
-      shell: " minikube delete --all"
+      shell: "minikube delete --all"
+      ignore_errors: true
 
-    - name: Start Minikube
+    - name: Start Minikube with Docker driver
       become: false
-      shell: " minikube start"
+      shell: "minikube start --driver=docker"
+      environment:
+        PATH: "/usr/local/bin:/usr/bin:/bin:{{ ansible_env.PATH | default('') }}"
 
     - name: Apply Kubernetes Manifests for metrics-server
       become: false
