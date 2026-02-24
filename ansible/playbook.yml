@@ -4,6 +4,28 @@
   become: true
   tasks:
 
+    - name: "[LOG] VM / OS info (per debug: Ubuntu vs Debian, ecc.)"
+      become: false
+      shell: |
+        echo "=== OS ==="
+        cat /etc/os-release 2>/dev/null || true
+        echo "=== Kernel ==="
+        uname -a
+        echo "=== User / Home / PATH ==="
+        echo "USER=$USER HOME=$HOME"
+        echo "PATH=$PATH"
+        echo "=== Docker (se presente) ==="
+        which docker 2>/dev/null || echo "docker: not in PATH"
+        docker --version 2>/dev/null || true
+        echo "=== Docker socket ==="
+        ls -la /var/run/docker.sock 2>/dev/null || echo "docker.sock: not found"
+      register: log_os
+      changed_when: false
+
+    - name: "[LOG] Mostra info OS/VM"
+      debug:
+        msg: "{{ log_os.stdout_lines }}"
+
     - name: Copy Kubernetes Manifests from GitHub
       copy:
         src: ../kubernetes/
@@ -19,6 +41,19 @@
     - name: Run sutupDocker.sh
       become: true
       shell: "cd /home/{{ ansible_user_id }} && sudo ./sutupDocker.sh"
+      register: run_sutup
+      args:
+        executable: /bin/bash
+
+    - name: "[LOG] Output sutupDocker.sh (ultime 80 righe)"
+      debug:
+        msg: "{{ (run_sutup.stdout_lines | default([]))[-80:] }}"
+      when: run_sutup.stdout_lines is defined and (run_sutup.stdout_lines | length) > 0
+
+    - name: "[LOG] Errori sutupDocker.sh"
+      debug:
+        msg: "{{ run_sutup.stderr_lines | default([]) }}"
+      when: run_sutup.stderr is defined and run_sutup.stderr | length > 0
 
     - name: Check if Docker socket exists
       stat:

@@ -4,6 +4,29 @@
   become: true
   tasks:
 
+    - name: "[LOG] VM / OS info (Ubuntu vs Debian, versione, PATH)"
+      become: false
+      shell: |
+        echo "=== OS ==="
+        cat /etc/os-release 2>/dev/null || true
+        echo "=== Kernel ==="
+        uname -a
+        echo "=== User / Home / PATH ==="
+        echo "USER=$USER ID={{ ansible_user_id }} HOME=$HOME"
+        echo "PATH=$PATH"
+        echo "=== Docker (se presente) ==="
+        which docker 2>/dev/null || echo "docker: not in PATH"
+        docker --version 2>/dev/null || true
+        ls -la /var/run/docker.sock 2>/dev/null || echo "docker.sock: not found"
+        echo "=== systemd docker service ==="
+        systemctl status docker 2>/dev/null || true
+      register: log_os
+      changed_when: false
+
+    - name: "[LOG] Mostra info OS/VM"
+      debug:
+        msg: "{{ log_os.stdout_lines }}"
+
     - name: Check if Docker is installed
       become: true
       command: which docker
@@ -11,14 +34,30 @@
       changed_when: false
       failed_when: false
 
+    - name: "[LOG] Esito check Docker (rc={{ docker_check.rc }})"
+      debug:
+        msg: "Docker in PATH: {{ docker_check.rc == 0 }} | which output: {{ docker_check.stdout | default('') }}"
+
     - name: Install Docker (official script) when not present
       become: true
       shell: |
+        set -e
+        echo "=== Installazione Docker (get.docker.com) ==="
         curl -fsSL https://get.docker.com | sh
         systemctl start docker
         systemctl enable docker
         usermod -aG docker {{ ansible_user_id }}
+        echo "=== Docker installato ==="
+        docker --version
       when: docker_check.rc != 0
+      register: docker_install
+      args:
+        executable: /bin/bash
+
+    - name: "[LOG] Output installazione Docker"
+      debug:
+        msg: "{{ docker_install.stdout_lines | default([]) }}"
+      when: docker_install.stdout_lines is defined and (docker_install.stdout_lines | length) > 0
 
     - name: Ensure Docker service is started (if present)
       become: true
@@ -30,12 +69,30 @@
       become: false
       shell: "minikube delete --all"
       ignore_errors: true
+      register: minikube_delete
+      changed_when: false
+
+    - name: "[LOG] Minikube delete (ignore_errors)"
+      debug:
+        msg: "{{ minikube_delete.stdout_lines | default([]) }}"
+      when: minikube_delete.stdout_lines is defined
 
     - name: Start Minikube with Docker driver
       become: false
-      shell: "sg docker -c 'minikube start --driver=docker'"
+      shell: "sg docker -c 'minikube start --driver=docker' 2>&1"
       environment:
         PATH: "/usr/local/bin:/usr/bin:/bin"
+      register: minikube_start
+      failed_when: false
+
+    - name: "[LOG] Output Minikube start (rc={{ minikube_start.rc }})"
+      debug:
+        msg: "{{ (minikube_start.stdout_lines or []) + (minikube_start.stderr_lines or []) }}"
+
+    - name: Fail se Minikube non è partito
+      fail:
+        msg: "Minikube start fallito (rc={{ minikube_start.rc }}). Controlla il log sopra; su Debian a volte serve installare docker prima (playbook1) o usare una VM Ubuntu."
+      when: minikube_start.rc != 0
 
     - name: Apply Kubernetes Manifests for metrics-server
       become: false
