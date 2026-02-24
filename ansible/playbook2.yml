@@ -38,12 +38,26 @@
       debug:
         msg: "Docker in PATH: {{ docker_check.rc == 0 }} | which output: {{ docker_check.stdout | default('') }}"
 
-    - name: Install Docker (official script) when not present
+    - name: Install Docker (repo Debian/Ubuntu in base a OS, get.docker.com sbaglia su Debian GCE)
       become: true
       shell: |
         set -e
-        echo "=== Installazione Docker (get.docker.com) ==="
-        curl -fsSL https://get.docker.com | sh
+        . /etc/os-release
+        if [ "$ID" = "debian" ]; then
+          DOCKER_DISTRO=debian
+          echo "=== Rilevato Debian: uso repo Docker per Debian ($VERSION_CODENAME) ==="
+        else
+          DOCKER_DISTRO=ubuntu
+          echo "=== Rilevato Ubuntu: uso repo Docker per Ubuntu ($VERSION_CODENAME) ==="
+        fi
+        apt-get update -qq
+        apt-get install -y ca-certificates curl
+        install -m 0755 -d /etc/apt/keyrings
+        curl -fsSL "https://download.docker.com/linux/${DOCKER_DISTRO}/gpg" -o /etc/apt/keyrings/docker.asc
+        chmod a+r /etc/apt/keyrings/docker.asc
+        echo "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.asc] https://download.docker.com/linux/${DOCKER_DISTRO} ${VERSION_CODENAME} stable" > /etc/apt/sources.list.d/docker.list
+        apt-get update -qq
+        apt-get install -y docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
         systemctl start docker
         systemctl enable docker
         usermod -aG docker {{ ansible_user_id }}
