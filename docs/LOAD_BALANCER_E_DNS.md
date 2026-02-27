@@ -48,13 +48,31 @@ senza toccare il file hosts.
 
 Il traffico del LB arriva sulla VM sulla **porta 80**. Serve un processo che ascolti su 80 e inoltri a nginx (es. `kubectl port-forward`).
 
-Attualmente il port-forward va avviato a mano (o con un servizio che parte al boot). Comando da eseguire **sulla VM** (via SSH):
+### Opzione 1: Servizio systemd (consigliato, permanente)
+
+Nella cartella `vm/` del progetto trovi `nginx-portforward.service`. Sulla VM:
 
 ```bash
-sudo KUBECONFIG=/home/ciccio_conti0909/.kube/config nohup kubectl port-forward --address=0.0.0.0 svc/nginx-service 80:80 >> /tmp/nginx-pf.log 2>&1 &
+# Copia il file (da locale, dopo averlo portato sulla VM)
+sudo cp nginx-portforward.service /etc/systemd/system/
+sudo systemctl daemon-reload
+sudo systemctl enable nginx-portforward
+sudo systemctl start nginx-portforward
+sudo systemctl status nginx-portforward
 ```
 
-Per renderlo permanente si può creare un servizio **systemd** sulla VM che esegue questo comando al boot.
+Dopo un riavvio della VM il port-forward riparte da solo.
+
+### Opzione 2: Avvio manuale (temporaneo)
+
+La porta 80 è privilegiata: il port-forward va avviato **con sudo** sulla VM:
+
+```bash
+sudo env KUBECONFIG=/home/ciccio_conti0909/.kube/config nohup kubectl port-forward --address=0.0.0.0 svc/nginx-service 80:80 >> /tmp/nginx-pf.log 2>&1 &
+```
+
+Se il servizio systemd non legge la kubeconfig (errore di permessi), rendila leggibile da root:  
+`chmod 644 /home/ciccio_conti0909/.kube/config`
 
 ---
 

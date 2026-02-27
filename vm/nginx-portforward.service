@@ -1,0 +1,18 @@
+[Unit]
+Description=Port-forward nginx-service:80 to localhost:80 for GCP Load Balancer
+After=network.target
+
+[Service]
+Type=simple
+# Eseguito come root per poter usare la porta 80 (privilegiata)
+# Usa la kubeconfig dell'utente che ha avviato minikube (root può leggerla)
+Environment=KUBECONFIG=/home/ciccio_conti0909/.kube/config
+Environment=PATH=/usr/local/bin:/usr/bin:/bin
+# Esegui port-forward: porta 80 sulla VM -> nginx-service:80 nel cluster
+ExecStart=/usr/bin/env kubectl port-forward --address=0.0.0.0 svc/nginx-service 80:80 --v=0
+Restart=always
+RestartSec=5
+# Se kubectl non è nel PATH, sostituisci con il path completo (es. /usr/local/bin/kubectl)
+
+[Install]
+WantedBy=multi-user.target
