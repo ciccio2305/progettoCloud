@@ -3,7 +3,7 @@
 # https://github.com/ether/etherpad-lite
 #
 # Author: muxator
-
+ 
 FROM node:alpine AS adminbuild
 RUN npm install -g pnpm@9.0.4
 WORKDIR /opt/etherpad-lite
