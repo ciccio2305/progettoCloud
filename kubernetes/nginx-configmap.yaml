@@ -22,7 +22,7 @@ data:
         }
          server {
             listen       80;
-            server_name justsmart.it;
+            server_name justsmartapp.com;
             proxy_connect_timeout 1000;
             proxy_send_timeout 1000;
             proxy_read_timeout 1000;
@@ -41,7 +41,7 @@ data:
 
         server {
             listen 80;
-            server_name pad.justsmart.it;
+            server_name pad.justsmartapp.com;
             proxy_connect_timeout 1000;
             proxy_send_timeout 1000;
             proxy_read_timeout 1000;
@@ -60,7 +60,7 @@ data:
                 proxy_set_header x-frame-options allowall;
                 add_header X-Frame-Options '' always;
                 
-                #proxy_cookie_domain justsmart.it pad.justsmart.it;
+                #proxy_cookie_domain justsmartapp.com pad.justsmartapp.com;
                 proxy_redirect off;
 
                 proxy_pass http://etherpad-server-service.default.svc.cluster.local:9001;
@@ -69,7 +69,7 @@ data:
         #servizio chat
         server {
             listen 80;
-            server_name chat.justsmart.it;
+            server_name chat.justsmartapp.com;
             
             proxy_connect_timeout 1000;
             proxy_send_timeout 1000;

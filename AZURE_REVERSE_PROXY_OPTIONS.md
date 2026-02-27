@@ -3,9 +3,9 @@
 ## Configurazione Attuale Nginx
 
 Il tuo nginx attualmente gestisce:
-- **justsmart.it** → Python Server (porta 5000)
-- **pad.justsmart.it** → Etherpad (porta 9001) - con WebSocket
-- **chat.justsmart.it** → Tinode (porta 6060) - con WebSocket
+- **justsmartapp.com** → Python Server (porta 5000)
+- **pad.justsmartapp.com** → Etherpad (porta 9001) - con WebSocket
+- **chat.justsmartapp.com** → Tinode (porta 6060) - con WebSocket
 - **MongoDB** → Proxy TCP stream (porta 27017)
 
 ---
@@ -64,7 +64,7 @@ Il tuo nginx attualmente gestisce:
 - ✅ IP pubblico statico
 
 **Limitazioni:**
-- ❌ **NO routing basato su hostname** (non può distinguere tra justsmart.it, pad.justsmart.it, chat.justsmart.it)
+- ❌ **NO routing basato su hostname** (non può distinguere tra justsmartapp.com, pad.justsmartapp.com, chat.justsmartapp.com)
 - ❌ **NO WebSocket** supporto nativo
 - 💰 **Costo**: ~$0.025/ora (~$18/mese) + costi dati
 
@@ -120,7 +120,7 @@ Il tuo nginx attualmente gestisce:
 2. **Crea Front Door Standard**: 
    - Backend pool con IP della tua VM Kubernetes
    - Routing rules per ogni dominio
-   - Configura WebSocket per pad.justsmart.it e chat.justsmart.it
+   - Configura WebSocket per pad.justsmartapp.com e chat.justsmartapp.com
 3. **Configura DNS**: Puntare i domini a Front Door
 4. **Gestisci MongoDB**: Scegli una delle opzioni sopra
 

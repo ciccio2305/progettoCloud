@@ -16,7 +16,7 @@ FROM node:alpine AS build
 LABEL maintainer="Etherpad team, https://github.com/ether/etherpad-lite"
 
 # Set these arguments when building the image from behind a proxy
-ARG http_proxy= pad.justsmart.it
+ARG http_proxy= pad.justsmartapp.com
 ARG https_proxy=
 ARG no_proxy=
 
