@@ -484,8 +484,8 @@ def get_profile_pic():
 
 
 
-if __name__ == '__main__':
-    
+def _run_startup_init():
+    """Esegue init dipendente da Etherpad/Mongo; fallisce se servizi non pronti."""
     user_management.create_admin_user()
     user_management.insert_sezione("primasezionecivile")
     user_management.insert_sezione("secondasezionecivile")
@@ -507,6 +507,18 @@ if __name__ == '__main__':
         "sestasezionecivile"), "sestasezionecivile")
 
 
+if __name__ == '__main__':
+    max_attempts = 15
+    for attempt in range(1, max_attempts + 1):
+        try:
+            _run_startup_init()
+            break
+        except Exception as e:
+            print(f"[startup] tentativo {attempt}/{max_attempts} fallito: {e}")
+            if attempt < max_attempts:
+                time.sleep(10)
+            else:
+                print("[startup] Init non completato (Etherpad/Mongo non pronti). Avvio app comunque.")
     app.run(debug=True, threaded=True, host='0.0.0.0')
 
 
